@@ -20,13 +20,23 @@ if __name__ == "__main__":
     text = sys.stdin.read()
 
     opening_brackets_stack = []
+    index = []
     for i, next in enumerate(text):
+        match = True
         if next == '(' or next == '[' or next == '{':
             # Process opening bracket, write your code here
-            pass
+            opening_brackets_stack.append(Bracket(next,i))
+            index.append(i+1)
 
         if next == ')' or next == ']' or next == '}':
+            if len(opening_brackets_stack) == 0 or opening_brackets_stack.pop().Match(next) == False:
+                match = False
+                index.append(i+1)
+                break
+            index.pop()
             # Process closing bracket, write your code here
-            pass
-
     # Printing answer, write your code here
+    if match == False or len(opening_brackets_stack) > 0:
+        print(index.pop())
+    else:
+        print("Success")
