@@ -20,7 +20,9 @@ if __name__ == "__main__":
     text = sys.stdin.read()
 
     opening_brackets_stack = []
+    index = []
     for i, next in enumerate(text):
+        match = True
         if next == '(' or next == '[' or next == '{':
             # Process opening bracket, write your code here
             opening_brackets_stack.append(Bracket(next,i))

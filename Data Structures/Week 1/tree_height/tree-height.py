@@ -12,13 +12,13 @@ class TreeHeight:
     def compute_height(self):
         # Replace this code with a faster implementation
         maxHeight = 0
-        storage = {}
+        storage = [0 for x in range(self.n)]
         for vertex in range(self.n):
                 # print "starting for:", vertex
                 height = 0
                 i = vertex
                 while i != -1:
-                    if i in storage:
+                    if storage[i] != 0:
                         height += storage[i]
                         # print "found %d in storage, adding %d" % (i, storage[i])
                         # print "height now:", height
@@ -30,7 +30,7 @@ class TreeHeight:
                         i = self.parent[i]
                 j = vertex
                 temp_height = height
-                while j not in storage:
+                while storage[j] == 0:
                     if j == -1:
                         break
                     # print "storing %d in %d" % (temp_height, j)
