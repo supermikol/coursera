@@ -30,10 +30,10 @@ class HeapBuilder:
   def SiftDown(self, i):
     maxIndex = i
     l = self.LeftChild(i)
-    if l <= len(self._data) and self._data[l] < self._data[maxIndex]:
+    if l <= len(self._data) - 1 and self._data[l] < self._data[maxIndex]:
       maxIndex = l
     r = self.RightChild(i)
-    if r <= len(self._data) and self._data[r] < self._data[maxIndex]:
+    if r <= len(self._data) -1 and self._data[r] < self._data[maxIndex]:
       maxIndex = r
     if i != maxIndex:
       self.Swap(i, maxIndex)
