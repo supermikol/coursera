@@ -24,8 +24,8 @@ class JobQueue:
 
     def SiftDown(self, i):
       minIndex = i
-      l = 2*i + 1
-      r = 2*i + 2
+      l = self.LeftChild(i)
+      r = self.RightChild(i)
       minTemp = i
       if r <= self.num_workers - 1:
         if self.threads[self.heap_index[l]] < self.threads[self.heap_index[r]]:
