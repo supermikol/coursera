@@ -9,8 +9,6 @@ def get_fibonaccihuge(n, m):
   pis_array[1] = 1
   index = 0
 
-  #can strictly calculate the pisano sequence WITHOUT the fibonacci sequence!
-  #Recall that fib[i] % m = (fib[i-1] + fib[i-2]) % m
   for i in range(2,min(6*m,n+1)):
     pis_array[i] = (pis_array[i-1] + pis_array[i-2]) % m
     if pis_array[i] == 1 and pis_array[i-1] == 0:
