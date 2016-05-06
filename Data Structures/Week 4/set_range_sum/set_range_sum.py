@@ -9,6 +9,7 @@ class Vertex:
   def __init__(self, key, sum, left, right, parent):
     (self.key, self.sum, self.left, self.right, self.parent) = (key, sum, left, right, parent)
 
+#points children at self
 def update(v):
   if v == None:
     return
@@ -18,6 +19,7 @@ def update(v):
   if v.right != None:
     v.right.parent = v
 
+#rotates up one level
 def smallRotation(v):
   parent = v.parent
   if parent == None:
@@ -31,13 +33,13 @@ def smallRotation(v):
     m = v.left
     v.left = parent
     parent.right = m
-  update(parent)
-  update(v)
+  update(parent) #points children at self because above actions only assign new children
+  update(v) #same
   v.parent = grandparent
   if grandparent != None:
     if grandparent.left == parent:
       grandparent.left = v
-    else: 
+    else:
       grandparent.right = v
 
 def bigRotation(v):
@@ -48,8 +50,8 @@ def bigRotation(v):
   elif v.parent.right == v and v.parent.parent.right == v.parent:
     # Zig-zig
     smallRotation(v.parent)
-    smallRotation(v)    
-  else: 
+    smallRotation(v)
+  else:
     # Zig-zag
     smallRotation(v);
     smallRotation(v);
@@ -74,27 +76,27 @@ def splay(v):
 # bigger key (next value in the order).
 # If the key is bigger than all keys in the tree,
 # then result is None.
-def find(root, key): 
+def find(root, key):
   v = root
   last = root
   next = None
   while v != None:
-    if v.key >= key and (next == None or v.key < next.key):
-      next = v    
+    if v.key >= key and (next == None or v.key < next.key): #captures the closest next value to key unless value is found
+      next = v
     last = v
     if v.key == key:
-      break    
+      break
     if v.key < key:
       v = v.right
-    else: 
-      v = v.left      
+    else:
+      v = v.left
   root = splay(last)
   return (next, root)
 
-def split(root, key):  
-  (result, root) = find(root, key)  
-  if result == None:    
-    return (root, None)  
+def split(root, key):
+  (result, root) = find(root, key)
+  if result == None:
+    return (root, None)
   right = splay(result)
   left = right.left
   right.left = None
@@ -104,7 +106,7 @@ def split(root, key):
   update(right)
   return (left, right)
 
-  
+
 def merge(left, right):
   if left == None:
     return right
@@ -117,9 +119,9 @@ def merge(left, right):
   update(right)
   return right
 
-  
+
 # Code that uses splay tree to solve the problem
-                                    
+
 root = None
 
 def insert(x):
@@ -127,27 +129,39 @@ def insert(x):
   (left, right) = split(root, x)
   new_vertex = None
   if right == None or right.key != x:
-    new_vertex = Vertex(x, x, None, None, None)  
+    new_vertex = Vertex(x, x, None, None, None) #self.key, self.sum, self.left, self.right, self.parent
   root = merge(merge(left, new_vertex), right)
-  
-def erase(x): 
+
+def erase(x):
   global root
   # Implement erase yourself
-  pass
+  # pass
+  (left, right) = split(root, x)
+  if right == None or right.key != x:
+    root = merge(left,right)
+    return
+  right = right.right
+  if right != None:
+    right.parent = None
+  root = merge(left,right)
 
-def search(x): 
+def search(x):
   global root
   # Implement find yourself
-  
+  (result, root) = find(root, x)
+  if result != None and result.key == x:
+    return True
   return False
-  
-def sum(fr, to): 
+
+def sum(fr, to):
   global root
   (left, middle) = split(root, fr)
   (middle, right) = split(middle, to + 1)
   ans = 0
   # Complete the implementation of sum
-
+  if middle != None:
+    ans = middle.sum
+  root = merge(merge(left,middle),right)
   return ans
 
 MODULO = 1000000001
