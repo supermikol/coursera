@@ -7,9 +7,15 @@ Segment = namedtuple('Segment', 'start end')
 def optimal_points(segments):
     points = []
     #write your code here
+    segments.sort(key=lambda x: x.start)
+    endPointer = segments[0].end
     for s in segments:
-        points.append(s.start)
-        points.append(s.end)
+        if s.start <= endPointer:
+            endPointer = min(endPointer,s.end)
+        else:
+            points.append(endPointer)
+            endPointer = s.end
+    points.append(endPointer)
     return points
 
 if __name__ == '__main__':

@@ -4,6 +4,12 @@ import sys
 def optimal_summands(n):
     summands = []
     #write your code here
+    i = 1
+    while n >= i:
+      n -= i
+      summands.append(i)
+      i += 1
+    summands[-1]+=n
     return summands
 
 if __name__ == '__main__':
