@@ -1,8 +1,9 @@
-# coursera
+## Coursera
 ###Homework assignments/challenges
 
 ###Courses in progress:
-####-Algorithmic Toolbox
+####Machine Learning
 
 ###Completed Courses
 ####-Data Structures
+####-Algorithmic Toolbox
