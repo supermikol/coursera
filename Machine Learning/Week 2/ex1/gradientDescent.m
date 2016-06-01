@@ -17,8 +17,8 @@ for iter = 1:num_iters
     %       of the cost function (computeCost) and gradient here.
     %
     predictions = X * theta; % mx1 matrix
-    delta = (1/m) * ((predictions - y)' * X);
-    theta = theta - alpha * delta';
+    delta = (1/m) * (X' * (predictions - y));
+    theta = theta - alpha * delta;
 
 
 
