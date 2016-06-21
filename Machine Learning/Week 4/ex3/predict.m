@@ -24,6 +24,7 @@ p = zeros(size(X, 1), 1);
 %add a0
 X = [ones(m,1), X];
 
+%don't forget the sigmoid!
 A = sigmoid(X * Theta1');
 
 %add a0
